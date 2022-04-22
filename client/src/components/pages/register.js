@@ -40,7 +40,7 @@ const Register = (props) => {
   return (
     <div className="register">
       <h1>Sign Up</h1>
-      <form>
+      <form onSubmit={onsubmit}>
         <input
           type="text"
           name="name"

@@ -6,6 +6,7 @@ import Register from "./components/pages/register";
 import Login from "./components/pages/login";
 import AuthState from "./context/authContext/AuthState";
 import setAuthToken from "./utils/setAuthToken";
+import Navbar from './components/layouts/Navbar'
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -14,6 +15,7 @@ if (localStorage.token) {
 function App() {
   return (
     <AuthState>
+      <Navbar />
       <Router>
         <Route exact path="/register" component={Register} />
         <Route exact path="/" component={Login} />

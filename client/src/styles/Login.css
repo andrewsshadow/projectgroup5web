@@ -46,7 +46,7 @@ form input[type="password"]:focus {
   opacity: 0.9;
 }
 
-.register {
+.login {
   color: var(--primary-color);
   text-align: center;
   width: 33%;
@@ -86,7 +86,7 @@ form input[type="password"]:focus {
 }
 
 @media (max-width: 1100px) {
-  .register {
+  .login {
     width: 40%;
   }
   .toggle {
