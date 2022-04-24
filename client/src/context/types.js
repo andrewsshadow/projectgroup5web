@@ -18,6 +18,3 @@ export const GUESTS_ERROR = 'GUESTS_ERROR';
 export const CLEAR_GUESTS = 'CLEAR_GUESTS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
-
-
-
