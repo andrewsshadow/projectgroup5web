@@ -74,11 +74,11 @@ const Register = (props) => {
       </form>
       <div className="question">
         {error !== null &&
-          error.map((err) => (
+          error.map(err => 
             <button className="danger" type="button">
               {err.msg} <span onClick={() => clearErrors()}>X</span>
             </button>
-          ))}
+          )}
         <p>
           Already have an accout? <Link to="/login">Sign In </Link>
         </p>

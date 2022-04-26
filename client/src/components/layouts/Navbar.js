@@ -2,13 +2,16 @@ import React, { Fragment, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/authContext/authContext'
+import GuestContext from '../../context/guestContext/guestContext'
 import '../../styles/Navbar.css'
 
 const Navbar = ({ title, icon }) => {
   const { user, logout, isAuthencated, clearErrors } = useContext(AuthContext)
+  const { clearGuests } = useContext(GuestContext)
 
   const onLogout = () => {
     logout()
+    clearGuests()
     clearErrors()
   }
   const authLinks = (
@@ -19,13 +22,25 @@ const Navbar = ({ title, icon }) => {
     </Fragment>
   );
 
+  const guestLinks = (
+    <Fragment>
+      <li>
+        <Link to='/register'>Register</Link>
+      </li>
+      <span className="sm-hide">|</span>
+      <li>
+        <Link to='/login'>Login</Link>
+      </li>
+    </Fragment>
+  );
+
   return (
     <div className='navbar'>
       <div className="logo">
         <h1><i className={icon} /> {title} </h1>
       </div>
       <ul>
-        {authLinks}
+        {isAuthencated ? authLinks : guestLinks}
       </ul>
     </div>
   )
@@ -37,6 +52,7 @@ Navbar.propTypes = {
 }
 
 // get icons for party horn and signout/signin
+
 Navbar.defaultProps = {
   title: 'Party Planner',
   icon: 'fas fa-party-horn'
