@@ -15,7 +15,7 @@ app.use('/register', require('./routes/register'))
 app.use('/auth', require('./routes/auth'))
 
 app.get('/', function (req, res) {
-  res.send('Hello World')
+  res.send('Hemllo World')
 })
 
 app.listen(5000)
