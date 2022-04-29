@@ -1,13 +1,21 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-
-
-//connect to database 
+const mongoose = require('mongoose')
 
 
 //Init Middlewares
 app.use(express.json({ extended: false }))
+
+//connect to database 
+mongoose.connect("mongodb+srv://sohomdas:Sohamdas123@cluster0.uoajq.mongodb.net/test")
+
+let db = mongoose.connection
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("hemllo");
+})
 
 
 // define routes
