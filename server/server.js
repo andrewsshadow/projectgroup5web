@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 app.use(express.json({ extended: false }))
 
 //connect to database 
-mongoose.connect("mongodb+srv://sohomdas:Sohamdas123@cluster0.uoajq.mongodb.net/test")
+mongoose.connect(process.env.MONGODB_STRING)
 
 let db = mongoose.connection
 
