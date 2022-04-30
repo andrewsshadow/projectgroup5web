@@ -21,9 +21,11 @@ function App() {
     <GuestState>
       <Router>
           <Navbar />
-          <PrivateRoute exact path='/' component={Home} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
+          <Switch>
+              <PrivateRoute exact path='/' component={Home} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+          </Switch>
       </Router>
     </GuestState>
     </AuthState>
