@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import GuestContext from '../../comtext/guestContext/guestContext'
+import GuestContext from '../../context/guestContext/guestContext'
 
 const GuestForm = () => {
   const context = useContext(GuestContext)
@@ -23,14 +23,14 @@ const GuestForm = () => {
     diet: 'Non-Veg'
   })
   const { name, phone, diet } = guest
-  const onchange = (e) => {
+  const onchange = (event) => {
     setGuest({
       ...guest,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     })
   }
-  const onsubmit = (e) => {
-    e.preventDefault();
+  const onsubmit = (event) => {
+    event.preventDefault();
     if (editGuest === null) {
       addGuest(guest);
 
