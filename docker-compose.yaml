@@ -1,0 +1,55 @@
+version: '2.2'
+services:
+  db:
+    image: mongo:5.0.8
+    restart: always
+    volumes:
+      - mongodb_data:/var/lib/mongodb/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME:root
+      - MONGO_INITDB_ROOT_PASSWORD:example
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep mongod"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: "npm start --port 5000"
+    # volumes:
+    #   - .:
+    ports:
+      - "5000:5000"
+    environment:
+      - JWT_KEY:'secret'
+      - MONGODB_STRING:'mongodb+srv://sohomdas:Sohamdas123@cluster0.uoajq.mongodb.net/test'
+    depends_on:
+      db:
+        # condition: service_started
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://0.0.0.0:5000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    command: "npm start --port 3000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      server:
+        # condition: service_started
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  mongodb_data:
+    driver: local
