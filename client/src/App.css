@@ -69,3 +69,65 @@ body{
 
 }
 
+@media(max-width:900px){
+  
+    .guests {
+      grid-template-columns: repeat(2, 1fr);
+    
+     }
+  }
+@media(max-width:760px){
+
+.sm-hide{
+    display: none;
+}
+li {
+    padding:0.2rem
+}
+.register , .login {
+    width: 70%
+}
+.main , .filter , .guests{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+.invite-section {
+    width: 100%;
+    margin: auto
+}
+table{
+    font-size:12px;
+}
+.navbar {
+padding: 1rem 0;
+font-size: 12px
+    }
+    .navbar h1 {
+    font-size: 14px
+    }
+
+.guest-card{
+    width: 100%
+}
+table{
+    margin:0
+}
+}
+
+.item-enter {
+    opacity: 0;
+  }
+  .item-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  .item-exit {
+    opacity: 1;
+  }
+  .item-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+  }
+

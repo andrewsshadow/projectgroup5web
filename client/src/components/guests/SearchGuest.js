@@ -1,5 +1,6 @@
 import React, { useRef, useContext } from 'react'
 import GuestContext from '../../context/guestContext/guestContext'
+import '../../styles/SearchGuest.css'
 
 const SearchGuest = () => {
   const { search_Guest, clearSearchGuest } = useContext(GuestContext)

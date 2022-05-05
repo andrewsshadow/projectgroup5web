@@ -1,0 +1,8 @@
+.guests {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 90%;
+    margin: auto;
+    margin-top:3.4rem;
+    padding: 1.1rem
+  }

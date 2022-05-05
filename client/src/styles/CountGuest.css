@@ -1,0 +1,20 @@
+table {
+    border-collapse: collapse;
+   width: 100%;
+   text-transform: capitalize;
+   color: #787a91;
+   font-size: bold
+  }
+  td , th{
+   text-align: center;
+   padding: 0.6rem 1.5rem;
+  }
+  th{
+   text-align: left;
+  }
+  tr:nth-child(odd) {
+   background-color: #ffffff;
+  }
+  td {
+    transition: all 0.2s ease 0s;
+  }

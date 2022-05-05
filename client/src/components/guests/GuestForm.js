@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import GuestContext from '../../context/guestContext/guestContext'
+import '../../styles/GuestForm.css'
 
 const GuestForm = () => {
   const context = useContext(GuestContext)
@@ -54,17 +55,17 @@ const GuestForm = () => {
         <p className="options-label">
           Dietary</p>
         <div className="options">
-          <label class="container">Non-Veg
+          <label className="container">Non-Veg
           <input type="radio" name="diet" value="Non-Veg" onChange={onchange} checked={diet === "Non-Veg"} />
-            <span class="checkmark"></span>
+            <span className="checkmark"></span>
           </label>
-          <label class="container">Vegan
+          <label className="container">Vegan
           <input type="radio" name="diet" value="Vegan" onChange={onchange} checked={diet === "Vegan"} />
-            <span class="checkmark"></span>
+            <span className="checkmark"></span>
           </label>
-          <label class="container">Pescatarian
+          <label className="container">Pescatarian
           <input type="radio" name="diet" value="Pescatarian" onChange={onchange} checked={diet === "Pescatarian"} />
-            <span class="checkmark"></span>
+            <span className="checkmark"></span>
           </label>
         </div>
         <input type="submit" value={editGuest !== null ? 'Update Guest' : 'Add Guest'} className="btn" />

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import GuestContext from '../../context/guestContext/guestContext'
+import '../../styles/GuestItem.css'
 
 const GuestItem = ({ guest }) => {
   const { removeGuest, edit_Guest, clearEdit, update_Guest } = useContext(GuestContext)
@@ -22,13 +23,13 @@ const GuestItem = ({ guest }) => {
           </label>
         </div>
         <div>
-          <button title="Edit Guest"><i class="fas fa-user-edit" onClick={() => edit_Guest(guest)} ></i></button>
+          <button title="Edit Guest"><i className="fas fa-user-edit" onClick={() => edit_Guest(guest)} ></i></button>
           <button onClick={handleRemove} title="Remove Guest"><i class="fas fa-trash-alt remove"></i></button>
         </div>
       </div>
       <div class="card-body">
         <h2>{name}</h2>
-        <span class={'badge ' + (diet === 'Vegan' ? 'green' : diet === 'Non-Veg' ? 'red' : 'seaGreen')}>{diet}</span>
+        <span className={'badge ' + (diet === 'Vegan' ? 'green' : diet === 'Non-Veg' ? 'red' : 'seaGreen')}>{diet}</span>
         <div class="contact">
           <i class="fas fa-phone-alt"></i>
           <p>{phone}</p>

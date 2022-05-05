@@ -54,7 +54,7 @@ router.post('/',
         }
       }
 
-      jwt.sign(payload, process.env.JWT_SECRET, {
+      jwt.sign(payload, process.env.JWT_SECRET || 'secret', {
         expiresIn: 36000
       },
         (err, token) => {
@@ -64,7 +64,7 @@ router.post('/',
       )
     } catch (err) {
       console.error(err.message)
-      res.status(500).send('server error')
+      res.status(500).send('server error' + err.message)
     }
   })
 

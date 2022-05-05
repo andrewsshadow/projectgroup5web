@@ -43,7 +43,7 @@ router.post('/',
           id: user.id
         }
       }
-      jwt.sign(payload, process.env.JWT_SECRET, {
+      jwt.sign(payload, process.env.JWT_SECRET || 'secret', {
         expiresIn: 36000
       },
         (err, token) => {

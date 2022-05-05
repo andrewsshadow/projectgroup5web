@@ -29,15 +29,18 @@ const GuestState = (props) => {
   // get guests
   const getGuests = async () => {
     try {
-      const res = await axios.get('/guests')
+      const res = await axios.get('http://localhost:5000/guests', {headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000"
+      }})
       dispatch({
         type: GET_GUESTS,
         payload: res.data
       })
-    } catch (error) {
+    } catch (e) {
       dispatch({
         type: GUESTS_ERROR,
-        payload: error.response.msg
+        payload: e.response.msg
       })
     }
   }
@@ -46,10 +49,11 @@ const GuestState = (props) => {
 
   const addGuest = async (guest) => {
     const config = {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      "Access-Control-Allow-Origin": "http://localhost:3000"
     }
     try {
-      const res = await axios.post('/guests', guest, config)
+      const res = await axios.post('http://localhost:5000/guests', guest, config)
       dispatch({
         type: ADD_GUEST,
         payload: res.data
@@ -66,15 +70,15 @@ const GuestState = (props) => {
   // remove guest 
   const removeGuest = async (id) => {
     try {
-      await axios.delete(`/guests/${id}`)
+      await axios.delete(`http://localhost:5000/guests/${id}`)
       dispatch({
         type: REMOVE_GUEST,
         payload: id
       })
-    } catch (error) {
+    } catch (e) {
       dispatch({
         type: GUESTS_ERROR,
-        payload: error.response.msg
+        payload: e.response.msg
       })
     }
   }
@@ -84,11 +88,12 @@ const GuestState = (props) => {
   const update_Guest = async (guest) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "http://localhost:3000"
       }
     }
     try {
-      const res = await axios.put(`/guests/${guest._id}`, guest, config)
+      const res = await axios.put(`http://localhost:5000/guests/${guest._id}`, guest, config)
       dispatch({
         type: UPDATE_GUEST,
         payload: res.data

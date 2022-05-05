@@ -3,6 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import GuestItem from '../guests/GuestItem'
 import GuestContext from '../../context/guestContext/guestContext'
 import AuthContext from '../../context/authContext/authContext'
+import '../../styles/GuestsList.css'
 
 
 

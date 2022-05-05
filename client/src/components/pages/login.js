@@ -5,6 +5,7 @@ import '../../styles/Login.css'
 
 const Login = (props) => {
   const { login, isAuthencated, error, clearErrors } = useContext(AuthContext);
+//   const history = useHistory();
   useEffect(() => {
     if (isAuthencated) {
       props.history.push("/");
@@ -59,13 +60,13 @@ const Login = (props) => {
         <input type="submit" value="Login" className="btn" />
       </form>
       <div className="question">
-        {error !== null && (
+        {error !== null && error !== undefined && (
           <button className="danger" type="button">
             {error} <span onClick={() => clearErrors()}>X</span>
           </button>
         )}
         <p>
-          Dont' have an accout? <Link to="/register">Sign Up</Link>
+          Don't have an accout? <Link to="/register">Sign Up</Link>
         </p>
       </div>
     </div>

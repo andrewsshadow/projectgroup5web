@@ -31,12 +31,12 @@ const AuthState = (props) => {
       setAuthToken(localStorage.token);
     }
     try {
-      const res = await axios.get("/auth");
+      const res = await axios.get("http://localhost:5000/auth");
       dispatch({
         type: USER_LOADED,
         payload: res.data,
       });
-    } catch (error) {
+    } catch (e) {
       dispatch({
         type: AUTH_ERROR,
       });
@@ -46,21 +46,23 @@ const AuthState = (props) => {
   //Register User
   const register = async (formData) => {
     const config = {
-      header: {
-        "Content-Type": "application/json",
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
       },
     };
     try {
-      const res = await axios.post("/register", formData, config);
+      const res = await axios.post("http://localhost:5000/register", formData, config);
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
       });
       loadUser();
-    } catch (error) {
+    } catch (e) {
+        console.log(e)
       dispatch({
         type: REGISTER_FAIL,
-        payload: error.response.data.error,
+        payload: e.response.data.error,
       });
     }
   };
@@ -69,21 +71,22 @@ const AuthState = (props) => {
 
   const login = async (formData) => {
     const config = {
-      header: {
+      headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:3000"
       },
     };
     try {
-      const res = await axios.post("/auth", formData, config);
+      const res = await axios.post("http://localhost:5000/auth", formData, config);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
       loadUser();
-    } catch (error) {
+    } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: error.response.data.msg,
+        payload: err.response.data.msg,
       });
     }
   };

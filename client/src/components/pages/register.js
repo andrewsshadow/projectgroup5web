@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/authContext/authContext";
 import "../../styles/Register.css";
@@ -73,14 +73,14 @@ const Register = (props) => {
         <input type="submit" value="Sign Up" className="btn" />
       </form>
       <div className="question">
-        {error !== null &&
-          error.map(err => 
+        {error !== null && error !== undefined && (
             <button className="danger" type="button">
-              {err.msg} <span onClick={() => clearErrors()}>X</span>
-            </button>
-          )}
+            {error.msg} <span onClick={() => clearErrors()}>X</span>
+          </button> 
+          )
+        }
         <p>
-          Already have an accout? <Link to="/login">Sign In </Link>
+          Already have an account? <Link to="/login">Sign In </Link>
         </p>
       </div>
     </div>

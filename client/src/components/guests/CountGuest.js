@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import GuestContext from '../../context/guestContext/guestContext'
+import '../../styles/CountGuest.css'
 
 const CountGuest = () => {
   const { guests } = useContext(GuestContext)

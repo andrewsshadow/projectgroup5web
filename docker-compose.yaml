@@ -3,6 +3,8 @@ services:
   db:
     image: mongo:5.0.8
     restart: always
+    ports:
+      - "27017:27017"
     volumes:
       - mongodb_data:/var/lib/mongodb/data
     environment:
@@ -24,13 +26,13 @@ services:
       - "5000:5000"
     environment:
       - JWT_KEY:'secret'
-      - MONGODB_STRING:'mongodb+srv://sohomdas:Sohamdas123@cluster0.uoajq.mongodb.net/test'
+      - MONGODB_STRING:'mongodb://localhost:27017/test'
     depends_on:
       db:
         # condition: service_started
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://0.0.0.0:5000"]
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
       interval: 10s
       timeout: 5s
       retries: 5
