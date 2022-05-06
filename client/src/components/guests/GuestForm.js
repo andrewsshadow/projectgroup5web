@@ -23,14 +23,14 @@ const GuestForm = () => {
     phone: '',
     diet: 'Non-Veg'
   })
-  const { name, phone, diet } = guest
+  const { name='Test Guest', phone='123456789', diet='Vegan' } = guest
   const onchange = (event) => {
     setGuest({
       ...guest,
       [event.target.name]: event.target.value
     })
   }
-  const onsubmit = (event) => {
+  const submitGuest = (event) => {
     event.preventDefault();
     if (editGuest === null) {
       addGuest(guest);
@@ -49,7 +49,7 @@ const GuestForm = () => {
 
     <div className="invite-section">
       <h1>{editGuest !== null ? 'Edit Guest' : 'Invite Someone'}</h1>
-      <form onSubmit={onsubmit} >
+      <form onSubmit={submitGuest} >
         <input type="text" placeholder="Name" name="name" value={name} onChange={onchange} required />
         <input type="text" placeholder="Phone" name="phone" value={phone} onChange={onchange} required />
         <p className="options-label">

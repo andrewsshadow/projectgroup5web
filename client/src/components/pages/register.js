@@ -9,7 +9,7 @@ const Register = (props) => {
     useContext(AuthContext);
   useEffect(() => {
     if (isAuthencated) {
-      props.history.push("/");
+      props.history.push('/')
     }
   }, [isAuthencated, props.history]);
   const [user, setUser] = useState({
@@ -19,13 +19,13 @@ const Register = (props) => {
     password2: "",
   });
   const { name, email, password, password2 } = user;
-  onchange = (e) => {
+  const registerChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-    if (error !== null) {
+    if (error !== null && error !== undefined) {
       clearErrors();
     }
   };
-  onsubmit = (e) => {
+  const submitRegister = (e) => {
     e.preventDefault();
     if (password !== password2) {
       setError("Password does not match");
@@ -40,34 +40,34 @@ const Register = (props) => {
   return (
     <div className="register">
       <h1>Sign Up</h1>
-      <form onSubmit={onsubmit}>
+      <form onSubmit={submitRegister}>
         <input
           type="text"
           name="name"
           placeholder="Name"
           value={name}
-          onChange={onchange}
+          onChange={registerChange}
         />
         <input
           type="email"
           name="email"
           placeholder="Email"
           value={email}
-          onChange={onchange}
+          onChange={registerChange}
         />
         <input
           type="password"
           name="password"
           placeholder="Password"
           value={password}
-          onChange={onchange}
+          onChange={registerChange}
         />
         <input
           type="password"
           name="password2"
           placeholder="Confirm Password"
           value={password2}
-          onChange={onchange}
+          onChange={registerChange}
           required
         />
         <input type="submit" value="Sign Up" className="btn" />
@@ -80,7 +80,7 @@ const Register = (props) => {
           )
         }
         <p>
-          Already have an account? <Link to="/login">Sign In </Link>
+          Already have an account? <Link to="/login">Log in </Link>
         </p>
       </div>
     </div>

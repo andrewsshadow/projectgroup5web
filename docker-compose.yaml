@@ -26,7 +26,7 @@ services:
       - "5000:5000"
     environment:
       - JWT_KEY:'secret'
-      - MONGODB_STRING:'mongodb://localhost:27017/test'
+      - MONGODB_STRING:'mongodb://db:27017/test'
     depends_on:
       db:
         # condition: service_started

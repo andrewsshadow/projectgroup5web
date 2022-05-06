@@ -5,15 +5,13 @@ import '../../styles/Login.css'
 
 const Login = (props) => {
   const { login, isAuthencated, error, clearErrors } = useContext(AuthContext);
-//   const history = useHistory();
   useEffect(() => {
     if (isAuthencated) {
-      props.history.push("/");
       clearErrors();
+      props.history.push('/')
     } else {
       clearErrors();
     }
-    // eslint-disable-next-line
   }, [isAuthencated, props.history]);
   const [user, setUser] = useState({
     email: "",
@@ -66,7 +64,7 @@ const Login = (props) => {
           </button>
         )}
         <p>
-          Don't have an accout? <Link to="/register">Sign Up</Link>
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
       </div>
     </div>

@@ -57,9 +57,9 @@ const AuthState = (props) => {
         type: REGISTER_SUCCESS,
         payload: res.data,
       });
-      loadUser();
+      logout();
+      login(formData);
     } catch (e) {
-        console.log(e)
       dispatch({
         type: REGISTER_FAIL,
         payload: e.response.data.error,
@@ -82,6 +82,7 @@ const AuthState = (props) => {
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
+
       loadUser();
     } catch (err) {
       dispatch({

@@ -18,7 +18,7 @@ const GuestItem = ({ guest }) => {
     <div className="guest-card">
       <div className="card-head">
         <div >
-          <label className={`${isconfirmed && 'confirm'}`}>Confirmed
+          <label className={`${isconfirmed && 'confirm'}`}>Confirmed?
             <i className={`fas fa-check-square ${isconfirmed && 'confirm'}`}><input type="checkbox" onChange={onchange} /> </i>
           </label>
         </div>

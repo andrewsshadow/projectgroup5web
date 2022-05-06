@@ -10,7 +10,7 @@ dotenv.config()
 app.options('*', cors());
 
 var corsOptions = {
-    origin: 'http://localhost:8080',
+    origin: 'http://localhost:3000',
     optionsSuccessStatus: 200 // For legacy browser support
 }
 
