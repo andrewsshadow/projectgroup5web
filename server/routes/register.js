@@ -13,7 +13,7 @@ const User = require('../models/User.js')
 // @access Public
 router.post('/',
   [
-    check('name', 'Please provide a name').not().isEmpty(),
+    check('name', 'Please provide a name').notEmpty(),
     check('email', 'Please provide an email').isEmail(),
     check('password', 'Password at least 6 character long').isLength({ min: 6 })
 
@@ -32,7 +32,7 @@ router.post('/',
       // user already exits ?
       let user = await User.findOne({ email })
       if (user) {
-        return res.status(400).json({ error: [{ msg: 'user already exits' }] })
+        return res.status(400).json({ msg: 'user already exits' })
       }
       user = new User({
         name,
@@ -64,7 +64,7 @@ router.post('/',
       )
     } catch (err) {
       console.error(err.message)
-      res.status(500).send('server error' + err.message)
+      res.status(500).send('server error')
     }
   })
 

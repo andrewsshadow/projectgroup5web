@@ -58,8 +58,6 @@ const AuthState = (props) => {
         payload: res.data,
       });
       loadUser();
-    //   logout();
-    //   login(formData);
     } catch (e) {
       dispatch({
         type: REGISTER_FAIL,

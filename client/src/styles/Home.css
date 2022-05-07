@@ -8,3 +8,14 @@
   flex-wrap: wrap;
   order:3
 }
+
+.main {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: rgba(187, 137, 0, 0.63);
+    border-radius: 0.3rem;
+    padding: 3rem;
+  }

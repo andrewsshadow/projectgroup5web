@@ -14,7 +14,6 @@ const GuestsList = () => {
   const { guests, guestFilter, searchGuest, getGuests } = context
   useEffect(() => {
     getGuests();
-    // eslint-disable-next-line
   }, []);
 
   if (guests === null || guests.length === 0) {
@@ -22,7 +21,7 @@ const GuestsList = () => {
   }
 
   return (
-    <div >
+    <div className='main--div-guests'>
       <TransitionGroup className="guests">
         {searchGuest !== null ? searchGuest.map(guest => (
           <CSSTransition key={guest._id} timeout={300}

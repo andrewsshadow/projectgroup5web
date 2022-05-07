@@ -34,7 +34,7 @@ let db = mongoose.connection
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
-  console.log("hemllo");
+  console.log("DB connected");
 })
 
 
@@ -44,7 +44,7 @@ app.use('/auth', require('./routes/auth'))
 app.use('/guests', require('./routes/guest'))
 
 app.get('/', function (req, res) {
-  res.send('Hemllo World')
+  res.send('API up')
 })
 
 app.listen(process.env.PORT || 5000)

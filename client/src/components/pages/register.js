@@ -9,8 +9,10 @@ const Register = (props) => {
     useContext(AuthContext);
   useEffect(() => {
     if (isAuthencated) {
-      props.history.push('/')
+      props.history.push('/');
+      clearErrors();
     }
+    clearErrors();
   }, [isAuthencated, props.history]);
   const [user, setUser] = useState({
     name: "",
@@ -39,7 +41,7 @@ const Register = (props) => {
   };
   return (
     <div className="register">
-      <h1>Sign Up</h1>
+      <h1>Register</h1>
       <form onSubmit={submitRegister}>
         <input
           type="text"
@@ -70,7 +72,7 @@ const Register = (props) => {
           onChange={registerChange}
           required
         />
-        <input type="submit" value="Sign Up" className="btn" />
+        <button type="submit" value="Sign Up" className="btn">Register <i className="fa-solid fa-address-card"></i></button>
       </form>
       <div className="question">
         {error !== null && error !== undefined && (

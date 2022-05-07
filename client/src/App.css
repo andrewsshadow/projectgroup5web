@@ -61,13 +61,6 @@ body{
   margin: auto;
   }
  
-  
-.main {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end
-
-}
 
 @media(max-width:900px){
   

@@ -27,8 +27,11 @@ router.post('/',
   [
     auth,
     [
-      check('name', 'Please provide the name').not().isEmpty(),
-      check('phone', 'Please provide the phone').not().isEmpty()
+      check('user', 'Please provide a user').notEmpty(),
+      check('name', 'Please provide the name').notEmpty(),
+      check('phone', 'Please provide the phone').notEmpty(),
+      check('diet', 'Invalid diet field').notEmpty(),
+      check('isconfirmed', 'Invalid confirmation field').notEmpty(),
     ]
   ],
   async (req, res) => {

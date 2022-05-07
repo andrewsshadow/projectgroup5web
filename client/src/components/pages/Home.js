@@ -13,7 +13,6 @@ const Home = () => {
 
   useEffect(() => {
     loadUser()
-    // eslint-disable-next-line
   }, [])
   return (
     <div className="app-container">

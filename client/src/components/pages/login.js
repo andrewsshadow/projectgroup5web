@@ -8,7 +8,7 @@ const Login = (props) => {
   useEffect(() => {
     if (isAuthencated) {
       clearErrors();
-      props.history.push('/')
+      props.history.push('/');
     } else {
       clearErrors();
     }
@@ -30,11 +30,11 @@ const Login = (props) => {
   };
   const onsubmit = (e) => {
     e.preventDefault();
+    clearErrors();
     login({
       email,
       password,
     });
-    clearErrors();
   };
   return (
     <div className="login">
@@ -55,7 +55,7 @@ const Login = (props) => {
           onChange={onchange}
           required
         />
-        <input type="submit" value="Login" className="btn" />
+        <button type="submit" value="Login" className="btn">Login <i className="fa-solid fa-arrow-right-to-bracket"></i></button>
       </form>
       <div className="question">
         {error !== null && error !== undefined && (

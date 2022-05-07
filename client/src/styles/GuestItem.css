@@ -6,6 +6,11 @@
     max-width: 26rem;
     line-height: 1.6;
     margin-right:1rem;
+    padding: 1rem;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: black;
+    border-radius: 0.3rem;
    }
    .card-head {
     display: flex;
@@ -23,7 +28,7 @@
     cursor: pointer;
    }
    .card-head i:hover  {
-    color:#787a91;
+    color:#d8d9e6;
     opacity: 0.8;
     transition: all 0.1s ease 0s;
    }
@@ -33,7 +38,7 @@
     transition: all 0.1s ease 0s;
    }
    .confirm {
-   color:#787a91 !important;
+   color:#dfe0e7 !important;
    }
    .card-head label {
      margin-right: 0.2rem
@@ -70,6 +75,15 @@
     color: #fff;
     border-radius: 2px;
    }
+   .badge.light--blue {
+    background: #00a7e9;
+    }
+    .badge.dark--blue {
+        background: #003fc7;
+    }
+    .badge.dark--orange {
+        background: #c56900;
+    }
    .contact {
      display: flex;
      align-items: center
