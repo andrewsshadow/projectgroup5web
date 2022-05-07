@@ -25,13 +25,13 @@ const Navbar = ({ title, icon }) => {
   const guestLinks = (
     <>
       <li>
-        <Link to='/register'>
+        <Link to='/register' onClick={clearErrors}>
             Register <i className="fa-solid fa-address-card"></i>
         </Link>
       </li>
       <span className="sm-hide">|</span>
       <li>
-        <Link to='/login'>
+        <Link to='/login' onClick={clearErrors}>
             Login <i className="fa-solid fa-arrow-right-to-bracket"></i>
         </Link>
       </li>

@@ -64,7 +64,7 @@ const Login = (props) => {
           </button>
         )}
         <p>
-          Don't have an account? <Link to="/register">Register</Link>
+          Don't have an account? <Link to="/register" onClick={clearErrors}>Register</Link>
         </p>
       </div>
     </div>

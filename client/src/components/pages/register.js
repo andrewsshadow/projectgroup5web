@@ -9,10 +9,9 @@ const Register = (props) => {
     useContext(AuthContext);
   useEffect(() => {
     if (isAuthencated) {
-      props.history.push('/');
-      clearErrors();
+        clearErrors();
+        props.history.push('/');
     }
-    clearErrors();
   }, [isAuthencated, props.history]);
   const [user, setUser] = useState({
     name: "",
@@ -77,12 +76,12 @@ const Register = (props) => {
       <div className="question">
         {error !== null && error !== undefined && (
             <button className="danger" type="button">
-            {error.msg} <span onClick={() => clearErrors()}>X</span>
+            {error} <span onClick={() => clearErrors()}>X</span>
           </button> 
           )
         }
         <p>
-          Already have an account? <Link to="/login">Log in </Link>
+          Already have an account? <Link to="/login" onClick={clearErrors}>Log in </Link>
         </p>
       </div>
     </div>
