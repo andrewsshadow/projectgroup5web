@@ -4,10 +4,17 @@
   --primary-color: #787a91;
   --dark-color: #0f044c;
   --txt-color: #ffffff;
-  --txt-color-form: #999999;
+  --txt-color-form: #6b6b6b;
   --danger-color: #cc2233;
   --success-color: #66e932;
   --highlighted-color: #00b7ff;
+}
+
+*{
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 form {
@@ -53,7 +60,7 @@ form input[type="password"]:focus {
   margin: 12rem auto;
 }
 .question {
-  color: #d6d6d6;
+  color: #686968;
   margin: 1.5rem 0;
 }
 .question a {

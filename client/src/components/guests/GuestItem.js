@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import GuestContext from '../../comtext/guestContext/guestContext'
+import GuestContext from '../../context/guestContext/guestContext'
 
 const GuestItem = ({ guest }) => {
   const { removeGuest, edit_Guest, clearEdit, update_Guest } = useContext(GuestContext)

@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+body{
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+ }
+:root {
+  --primary-color: #787a91;
+  --dark-color: #0f044c;
+  --txt-color: #ffffff;
+  --txt-color-form: #999999;
+  --danger-color: #cc2233;
+  --success-color: #66e932;
+  --highlighted-color: #00b7ff;
+}
+
+.app-container{
+  max-width: 90rem;
+  margin: auto;
+  }
+ 
+  
+.main {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end
+
+}
+

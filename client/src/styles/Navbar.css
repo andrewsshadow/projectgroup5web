@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300&display=swap');
+
 :root {
   --primary-color: #787a91;
   --dark-color: #0f044c;
@@ -8,6 +10,13 @@
   --highlighted-color: #00b7ff;
   --light-color: #f1f1f1;
 }
+
+*{
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+ }
 
 .navbar {
   display: flex;
