@@ -1,107 +1,98 @@
-const express = require('express')
-const auth = require('../middleware/auth')
-const { check, validationResult } = require('express-validator')
+let express = require('express')
+let { validationResult, check } = require('express-validator')
+let Guest = require('../models/Guest.js')
+let router = express.Router()
+let auth = require('../middleware/auth.js')
 
-const router = express.Router()
 
-//Guest Model
-const Guest = require('../models/Guest')
 
-// @route Get /guests
-// @des Get guests
-// @access Private
-router.get('/', auth, async (req, res) => {
+
+
+router.get('/', auth, async (request, response) => {
   try {
-    const guests = await Guest.find({ user: req.user.id })
-    res.json(guests)
-  } catch (err) {
-    console.err(err.message)
-    res.status(500).send('Server Error')
+    let guests = await Guest.find({ user: request.user.id })
+    response.json(guests)
+  } catch (error) {
+    response.status(500).send('Error from server')
   }
 })
 
-// @route POST /guests
-// @des Add new guest
-// @access Private
+
+
 router.post('/',
   [
     auth,
     [
-      check('name', 'Please provide the name').not().isEmpty(),
-      check('phone', 'Please provide the phone').not().isEmpty()
+      check('phone', 'Enter phone number please').not().isEmpty(),
+      check('name', 'Enter name please').not().isEmpty()
     ]
   ],
-  async (req, res) => {
-    const errors = validationResult(req)
+  async (request, response) => {
+    let errors = validationResult(request)
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
+      return response.status(400).json({ errors: errors.array() })
     }
 
-    const { name, phone, diet, isconfirmed } = req.body
+    let { phone, isconfirmed, diet, name } = request.body
 
     try {
-      const newGuest = new Guest({
-        user: req.user.id,
-        name,
+      let newGuest = new Guest({
         phone,
+        name,
         diet,
+        user: request.user.id,
         isconfirmed
       })
-      const guest = await newGuest.save()
 
-      res.json(guest)
+      let detailGuest = await newGuest.save()
 
-    } catch (err) {
+      response.json(detailGuest)
 
-      console.error(err.message)
-      res.status(500).send('server error')
+    } catch (error) {
+      response.status(500).send('error from server detected')
     }
   })
 
 
 
-// @route PUT /guests/:id
-// @des update guest
-// @access Private
+  router.delete('/:id', auth, async (request, response) => {
+    try {
+      let detailGuest = await Guest.findById(request.params.id)
+      if (!detailGuest) return response.status(404).json({ msg: 'No guest found' })
+  
+      if (detailGuest.user.toString() !== request.user.id) {
+        return response.status(401).json({ msg: 'Authorizaation failed' })
+      }
+      await Guest.findByIdAndRemove(request.params.id)
+      response.send('Data deleted from records')
+    } catch (error) {
+      response.status(500).send('Error from server')
+    }
+  })
 
 
-router.put('/:id', auth, async (req, res) => {
-  const { name, phone, diet, isconfirmed } = req.body
+router.put('/:id', auth, async (request, response) => {
+  let { phone, isconfirmed,  diet, name } = request.body
 
-  // build Guest object 
-  const guestFields = { name, phone, diet, isconfirmed };
+
+  let visitorDetais = { phone, isconfirmed,  diet, name }
 
   try {
-    let guest = await Guest.findById(req.params.id)
-    if (!guest) return res.status(404).json({ msg: 'Guest not found' })
-    // Make sure user owns the guest
-    if (guest.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorised' })
+    let detailGuest = await Guest.findById(request.params.id)
+    if (!detailGuest) return response.status(404).json({ msg: ' No guest found' })
+
+    if (detailGuest.user.toString() !== request.user.id) {
+      return response.status(401).json({ msg: 'authorization failed' })
     }
-    guest = await Guest.findByIdAndUpdate(req.params.id, { $set: guestFields }, { new: true })
-    res.send(guest)
-  } catch (err) {
-    console.errors(err.message)
-    res.status(500).send('Server Error')
+    detailGuest = await Guest.findByIdAndUpdate(request.params.id, { $set: visitorDetais }, { new: true })
+    response.send(detailGuest)
+  } catch (error) {
+    response.status(500).send('Error from server')
   }
 })
 
-// @route DELETE /guests/:id
-// @des Delete a guest
-// @access Private
-router.delete('/:id', auth, async (req, res) => {
-  try {
-    let guest = await Guest.findById(req.params.id)
-    if (!guest) return res.status(404).json({ msg: 'Guest not found' })
-    // check if user owns the guest 
-    if (guest.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Not authorised' })
-    }
-    await Guest.findByIdAndRemove(req.params.id)
-    res.send('Guest Removed successfully')
-  } catch (err) {
-    console.errors(err.message).json('Server Error')
-  }
-})
+
+
+
 
 module.exports = router

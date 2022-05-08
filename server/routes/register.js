@@ -1,71 +1,63 @@
+let express = require('express')
+let jwt = require('jsonwebtoken')
+let { validationResult, check } = require('express-validator')
+let bcrypt = require('bcrypt')
+let router = express.Router()
 require('dotenv').config()
-const express = require('express')
-const router = express.Router()
-const { check, validationResult } = require('express-validator')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
-//user Model 
-const User = require('../models/User.js')
+let User = require('../models/User.js')
 
-// @route POST /register
-// @des Register a new user
-// @access Public
+
 router.post('/',
   [
-    check('name', 'Please provide a name').not().isEmpty(),
     check('email', 'Please provide an email').isEmail(),
+    check('name', 'Please provide a name').not().isEmpty(),
     check('password', 'Password at least 6 character long').isLength({ min: 6 })
 
   ],
-  async (req, res) => {
+  async (request, response) => {
     console.log("post sent")
-    console.log(req.body)
-    const errors = validationResult(req)
+    console.log(request.body)
+    let errors = validationResult(request)
     if (!errors.isEmpty()) {
-      return res.status(400).json({ error: errors.array() })
+      return response.status(400).json({ error: errors.array() })
     }
 
-    const { name, email, password } = req.body
+    let {email, password,  name } = request.body
 
     try {
-      // user already exits ?
-      let user = await User.findOne({ email })
-      if (user) {
-        return res.status(400).json({ error: [{ msg: 'user already exits' }] })
+
+      let Datauser = await User.findOne({ email })
+      if (Datauser) {
+        return response.status(400).json({ error: [{ msg: 'This user is present already' }] })
       }
-      user = new User({
-        name,
-        email,
-        password
-      })
+      Datauser = new User({email, password,  name })
 
-      // password encryption
-      const salt = await bcrypt.genSalt(10)
-      user.password = await bcrypt.hash(password, salt)
 
-      await user.save()
+      let salt = await bcrypt.genSalt(10)
+      Datauser.password = await bcrypt.hash(password, salt)
 
-      // sign a jsonwebtoken
+      await Datauser.save()
 
-      const payload = {
-        user: {
-          id: user.id
+
+      let passdata = {
+        Datauser: {
+          id: Datauser.id
         }
       }
 
-      jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: 36000
+      jwt.sign(passdata, process.env.JWT_SECRET, {
+        expiresIn: 40000
       },
-        (err, token) => {
-          if (err) throw err
-          res.json({ token })
+        (error, token) => {
+          if (error) throw error
+          response.json({ token })
         }
       )
-    } catch (err) {
-      console.error(err.message)
-      res.status(500).send('server error')
+    } catch (error) {
+      response.status(500).send('error from server side')
     }
   })
 
+  
 module.exports = router

@@ -1,77 +1,63 @@
+let express = require('express')
+let jwt = require('jsonwebtoken')
+let router = express.Router()
+let { validationResult , check } = require('express-validator')
+let bcrypt = require('bcrypt')
+let auth = require('../middleware/auth.js')
+let User = require('../models/User.js')
+
 require('dotenv').config()
-const express = require('express')
-const router = express.Router()
-const auth = require('../middleware/auth')
-const { check, validationResult } = require('express-validator')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-
-//user Model 
-const User = require('../models/User')
-
-// @route POST /auth
-// @des Login user
-// @access Public
 
 
 router.post('/',
   [
-    check('email', 'Please provide an email').isEmail(),
-    check('password', 'Please provide the password').exists()
+    check('password', 'Enter your password').exists(),
+    check('email', 'Enter your emailId').isEmail()
   ],
-  async (req, res) => {
-    const errors = validationResult(req)
+  async (request, response) => {
+    let errors = validationResult(request)
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
+      return response.status(400).json({ errors: errors.array() })
     }
-    const { email, password } = req.body
+    let { password, email } = request.body
     try {
-      let user = await User.findOne({ email })
-      if (!user) {
-        return res.status(400).json({ msg: 'Invalid Credentials' })
-      }
-      // match password with bcrypt
-      const isMatch = await bcrypt.compare(password, user.password)
-
-      if (!isMatch) {
-        return res.status(400).json({ msg: 'Invalid Credentials' })
+      let DataUser = await User.findOne({ email })
+      if (!DataUser) {
+        return response.status(400).json({ msg: 'Wrong input' })
       }
 
-      // sign a jsonwebtoken
-      const payload = {
-        user: {
-          id: user.id
-        }
+      let isSame = await bcrypt.compare(password, user.password)
+
+      if (!isSame) {
+        return response.status(400).json({ msg: 'Wrong input' })
       }
-      jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: 36000
+
+
+      let passload = {
+        user: { id: user.id}
+      }
+
+      jwt.sign(passload, process.env.JWT_SECRET, {
+        expiresIn: 40000
       },
-        (err, token) => {
-          if (err) throw err
-          res.json({ token })
+        (error, token) => {
+          if (error) throw error
+          response.json({ token })
         }
       )
 
-    } catch (err) {
-      console.error(err.message)
-      res.status(500).send('server error')
+    } catch (error) {
+      response.status(500).send('Error from Server detected')
     }
-
   })
 
 
-// @route Get /auth
-// @des Get user
-// @access Private
-
-
-router.get('/', auth, async (req, res) => {
+router.get('/', auth, async (request, response) => {
   try {
-    const user = await User.findById(req.user.id).select('-password')
-    res.json(user)
-  } catch (err) {
-    console.error(err.message)
-    res.status(500).send('Server Error')
+    let dataUser = await User.findById(request.user.id).select('-password')
+    response.json(dataUser)
+  } catch (error) {
+    response.status(500).send('Error from Server detected ')
   }
 })
 

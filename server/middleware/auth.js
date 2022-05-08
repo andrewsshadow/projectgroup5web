@@ -1,22 +1,19 @@
+let jwt = require('jsonwebtoken')
 require('dotenv').config()
-const jwt = require('jsonwebtoken')
 
-const auth = (req, res, next) => {
-  //Get token from header 
-  const token = req.header('x-auth-token')
+let auth = (request, response, next) => {
+  let jwtk = request.header('x-auth-token')
 
-  // check if not token 
-  if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' })
+  if (!jwtk) {
+    return response.status(401).json({ msg: 'Token not found, authorization unsuccessful' })
   }
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
-    req.user = decoded.user
+    let check = jwt.verify(jwtk, process.env.JWT_SECRET)
+    request.user = check.user
     next()
 
-  } catch (err) {
-    res.status(401).json({ msg: 'Invalide Token' })
+  } catch (error) {
+    response.status(401).json(error)
   }
 }
 
